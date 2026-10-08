@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latihan 3 DOM, API, dan LocalStorage</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f3f4f6;
+      color: #1f2937;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    body.dark {
+      background-color: #111827;
+      color: #f3f4f6;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 16px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    h1, h2 {
+      margin-top: 0;
+    }
+
+    section {
+      background-color: white;
+      padding: 18px;
+      margin-bottom: 18px;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    body.dark section {
+      background-color: #1f2937;
+      box-shadow: none;
+    }
+
+    .form-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .field {
+      flex: 1 1 180px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input, button {
+      font: inherit;
+    }
+
+    input {
+      width: 100%;
+      padding: 9px;
+      border: 1px solid #cbd5e1;
+      border-radius: 5px;
+      background-color: white;
+      color: #111827;
+    }
+
+    body.dark input {
+      background-color: #374151;
+      border-color: #6b7280;
+      color: white;
+    }
+
+    button {
+      padding: 9px 13px;
+      border: none;
+      border-radius: 5px;
+      background-color: #2563eb;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.88;
+    }
+
+    button.secondary {
+      background-color: #6b7280;
+    }
+
+    button.danger {
+      background-color: #dc2626;
+    }
+
+    button.warning {
+      background-color: #d97706;
+    }
+
+    .form-actions {
+      margin-top: 14px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .error {
+      min-height: 18px;
+      color: #dc2626;
+      font-size: 13px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+    }
+
+    th, td {
+      border: 1px solid #d1d5db;
+      padding: 9px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #e5e7eb;
+    }
+
+    body.dark th {
+      background-color: #374151;
+    }
+
+    .aksi {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .pesan {
+      padding: 10px;
+      background-color: #e0f2fe;
+      border-radius: 5px;
+    }
+
+    body.dark .pesan {
+      background-color: #164e63;
+    }
+
+    .daftar-post, .daftar-todo {
+      padding: 0;
+      list-style: none;
+    }
+
+    .post, .todo-item {
+      padding: 12px 0;
+      border-bottom: 1px solid #d1d5db;
+    }
+
+    .post h3 {
+      margin: 0 0 5px;
+      text-transform: capitalize;
+    }
+
+    .search-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .search-bar input {
+      flex: 1;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+    }
+
+    .todo-form {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .todo-form input {
+      flex: 1;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .todo-item.selesai span {
+      text-decoration: line-through;
+      color: #6b7280;
+    }
+
+    .todo-item span {
+      flex: 1;
+    }
+
+    @media (max-width: 600px) {
+      .header, .todo-form, .search-bar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .header button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <div>
+        <h1>Latihan 3: DOM, API, dan LocalStorage</h1>
+        <p>Contoh latihan lanjutan JavaScript dasar.</p>
+      </div>
+      <button id="tombolMode">Aktifkan Dark Mode</button>
+    </header>
+
+    <section>
+      <h2>1. Data Mahasiswa</h2>
+      <form id="formMahasiswa" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="namaMahasiswa">Nama</label>
+            <input type="text" id="namaMahasiswa" placeholder="Minimal 3 karakter">
+            <small class="error" id="errorNama"></small>
+          </div>
+          <div class="field">
+            <label for="nimMahasiswa">NIM</label>
+            <input type="text" id="nimMahasiswa" placeholder="Minimal 5 karakter">
+            <small class="error" id="errorNim"></small>
+          </div>
+          <div class="field">
+            <label for="jurusanMahasiswa">Jurusan</label>
+            <input type="text" id="jurusanMahasiswa" placeholder="Contoh: Informatika">
+            <small class="error" id="errorJurusan"></small>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" id="tombolSimpan">Tambah Mahasiswa</button>
+          <button type="button" class="secondary" id="tombolBatal" hidden>Batal Edit</button>
+        </div>
+      </form>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama</th>
+              <th>NIM</th>
+              <th>Jurusan</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tabelMahasiswa"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Daftar Post dari API</h2>
+      <div class="search-bar">
+        <input type="search" id="inputCariPost" placeholder="Cari berdasarkan title...">
+        <button id="tombolCariPost">Cari</button>
+      </div>
+      <p class="pesan" id="pesanPost">Memuat data post...</p>
+      <ul class="daftar-post" id="daftarPost"></ul>
+      <div class="pagination">
+        <button class="secondary" id="tombolSebelumnya" disabled>Previous</button>
+        <span id="infoHalaman">Halaman 1</span>
+        <button id="tombolBerikutnya">Next</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>3. Todo List</h2>
+      <form class="todo-form" id="formTodo">
+        <input type="text" id="inputTodo" placeholder="Tulis kegiatan..." required>
+        <button type="submit">Tambah Todo</button>
+      </form>
+      <ul class="daftar-todo" id="daftarTodo"></ul>
+    </section>
+  </main>
+
+  <script>
+    let daftarMahasiswa = JSON.parse(localStorage.getItem("dataMahasiswa")) || [];
+    let indexMahasiswaEdit = -1;
+
+    const formMahasiswa = document.getElementById("formMahasiswa");
+    const inputNama = document.getElementById("namaMahasiswa");
+    const inputNim = document.getElementById("nimMahasiswa");
+    const inputJurusan = document.getElementById("jurusanMahasiswa");
+    const tabelMahasiswa = document.getElementById("tabelMahasiswa");
+    const tombolSimpan = document.getElementById("tombolSimpan");
+    const tombolBatal = document.getElementById("tombolBatal");
+
+    function simpanDataMahasiswa() {
+      localStorage.setItem("dataMahasiswa", JSON.stringify(daftarMahasiswa));
+    }
+
+    function tampilkanMahasiswa() {
+      tabelMahasiswa.innerHTML = "";
+
+      if (daftarMahasiswa.length === 0) {
+        tabelMahasiswa.innerHTML = '<tr><td colspan="5">Belum ada data mahasiswa.</td></tr>';
+        return;
+      }
+
+      for (let i = 0; i < daftarMahasiswa.length; i++) {
+        const mahasiswa = daftarMahasiswa[i];
+        const tr = document.createElement("tr");
+
+        const dataBaris = [i + 1, mahasiswa.nama, mahasiswa.nim, mahasiswa.jurusan];
+        for (let j = 0; j < dataBaris.length; j++) {
+          const td = document.createElement("td");
+          td.textContent = dataBaris[j];
+          tr.appendChild(td);
+        }
+
+        const tdAksi = document.createElement("td");
+        tdAksi.className = "aksi";
+
+        const tombolEdit = document.createElement("button");
+        tombolEdit.className = "warning";
+        tombolEdit.textContent = "Edit";
+        tombolEdit.addEventListener("click", function () {
+          mulaiEditMahasiswa(i);
+        });
+
+        const tombolHapus = document.createElement("button");
+        tombolHapus.className = "danger";
+        tombolHapus.textContent = "Hapus";
+        tombolHapus.addEventListener("click", function () {
+          hapusMahasiswa(i);
+        });
+
+        tdAksi.appendChild(tombolEdit);
+        tdAksi.appendChild(tombolHapus);
+        tr.appendChild(tdAksi);
+        tabelMahasiswa.appendChild(tr);
+      }
+    }
+
+    function bersihkanErrorMahasiswa() {
+      document.getElementById("errorNama").textContent = "";
+      document.getElementById("errorNim").textContent = "";
+      document.getElementById("errorJurusan").textContent = "";
+    }
+
+    formMahasiswa.addEventListener("submit", function (event) {
+      event.preventDefault();
+      bersihkanErrorMahasiswa();
+
+      const nama = inputNama.value.trim();
+      const nim = inputNim.value.trim();
+      const jurusan = inputJurusan.value.trim();
+      let valid = true;
+
+      if (nama.length < 3) {
+        document.getElementById("errorNama").textContent = "Nama minimal 3 karakter.";
+        valid = false;
+      }
+      if (nim.length < 5) {
+        document.getElementById("errorNim").textContent = "NIM minimal 5 karakter.";
+        valid = false;
+      }
+      if (jurusan.length === 0) {
+        document.getElementById("errorJurusan").textContent = "Jurusan harus diisi.";
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      const dataBaru = { nama: nama, nim: nim, jurusan: jurusan };
+
+      if (indexMahasiswaEdit === -1) {
+        daftarMahasiswa.push(dataBaru);
+      } else {
+        daftarMahasiswa[indexMahasiswaEdit] = dataBaru;
+        selesaiEditMahasiswa();
+      }
+
+      simpanDataMahasiswa();
+      tampilkanMahasiswa();
+      formMahasiswa.reset();
+      bersihkanErrorMahasiswa();
+    });
+
+    function mulaiEditMahasiswa(index) {
+      const mahasiswa = daftarMahasiswa[index];
+      indexMahasiswaEdit = index;
+      inputNama.value = mahasiswa.nama;
+      inputNim.value = mahasiswa.nim;
+      inputJurusan.value = mahasiswa.jurusan;
+      tombolSimpan.textContent = "Update Mahasiswa";
+      tombolBatal.hidden = false;
+    }
+
+    function selesaiEditMahasiswa() {
+      indexMahasiswaEdit = -1;
+      tombolSimpan.textContent = "Tambah Mahasiswa";
+      tombolBatal.hidden = true;
+    }
+
+    function hapusMahasiswa(index) {
+      daftarMahasiswa.splice(index, 1);
+      simpanDataMahasiswa();
+      tampilkanMahasiswa();
+    }
+
+    tombolBatal.addEventListener("click", function () {
+      formMahasiswa.reset();
+      bersihkanErrorMahasiswa();
+      selesaiEditMahasiswa();
+    });
+
+    tampilkanMahasiswa();
+
+    const tombolMode = document.getElementById("tombolMode");
+    const modeTersimpan = localStorage.getItem("modeWarna");
+
+    if (modeTersimpan === "dark") {
+      document.body.classList.add("dark");
+      tombolMode.textContent = "Matikan Dark Mode";
+    }
+
+    tombolMode.addEventListener("click", function () {
+      document.body.classList.toggle("dark");
+      const sedangDark = document.body.classList.contains("dark");
+
+      tombolMode.textContent = sedangDark ? "Matikan Dark Mode" : "Aktifkan Dark Mode";
+      localStorage.setItem("modeWarna", sedangDark ? "dark" : "light");
+    });
+
+    const urlPost = "https://jsonplaceholder.typicode.com/posts";
+    let semuaPost = [];
+    let postDitampilkan = [];
+    let halamanSekarang = 1;
+    const postPerHalaman = 5;
+
+    const daftarPost = document.getElementById("daftarPost");
+    const pesanPost = document.getElementById("pesanPost");
+    const inputCariPost = document.getElementById("inputCariPost");
+    const tombolSebelumnya = document.getElementById("tombolSebelumnya");
+    const tombolBerikutnya = document.getElementById("tombolBerikutnya");
+    const infoHalaman = document.getElementById("infoHalaman");
+
+    function tampilkanPost() {
+      daftarPost.innerHTML = "";
+
+      const awal = (halamanSekarang - 1) * postPerHalaman;
+      const akhir = awal + postPerHalaman;
+      const postHalaman = postDitampilkan.slice(awal, akhir);
+
+      if (postHalaman.length === 0) {
+        pesanPost.textContent = "Post tidak ditemukan.";
+      } else {
+        pesanPost.textContent = "Data post berhasil dimuat.";
+      }
+
+      for (let i = 0; i < postHalaman.length; i++) {
+        const post = postHalaman[i];
+        const li = document.createElement("li");
+        li.className = "post";
+
+        const judul = document.createElement("h3");
+        judul.textContent = post.title;
+        const isi = document.createElement("p");
+        isi.textContent = post.body;
+
+        li.appendChild(judul);
+        li.appendChild(isi);
+        daftarPost.appendChild(li);
+      }
+
+      const jumlahHalaman = Math.max(1, Math.ceil(postDitampilkan.length / postPerHalaman));
+      infoHalaman.textContent = "Halaman " + halamanSekarang + " dari " + jumlahHalaman;
+      tombolSebelumnya.disabled = halamanSekarang === 1;
+      tombolBerikutnya.disabled = halamanSekarang >= jumlahHalaman;
+    }
+
+    function cariPost() {
+      const kataKunci = inputCariPost.value.toLowerCase().trim();
+
+      postDitampilkan = semuaPost.filter(function (post) {
+        return post.title.toLowerCase().includes(kataKunci);
+      });
+
+      halamanSekarang = 1;
+      tampilkanPost();
+    }
+
+    function ambilPostDariAPI() {
+      fetch(urlPost)
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error("Gagal mengambil data dari API.");
+          }
+          return response.json();
+        })
+        .then(function (data) {
+          semuaPost = data;
+          postDitampilkan = data;
+          tampilkanPost();
+        })
+        .catch(function (error) {
+          pesanPost.textContent = error.message;
+        });
+    }
+
+    document.getElementById("tombolCariPost").addEventListener("click", cariPost);
+    inputCariPost.addEventListener("keyup", function (event) {
+      if (event.key === "Enter") {
+        cariPost();
+      }
+    });
+
+    tombolSebelumnya.addEventListener("click", function () {
+      if (halamanSekarang > 1) {
+        halamanSekarang--;
+        tampilkanPost();
+      }
+    });
+
+    tombolBerikutnya.addEventListener("click", function () {
+      const jumlahHalaman = Math.ceil(postDitampilkan.length / postPerHalaman);
+      if (halamanSekarang < jumlahHalaman) {
+        halamanSekarang++;
+        tampilkanPost();
+      }
+    });
+
+    ambilPostDariAPI();
+
+    let daftarTodo = JSON.parse(localStorage.getItem("daftarTodo")) || [];
+    const formTodo = document.getElementById("formTodo");
+    const inputTodo = document.getElementById("inputTodo");
+    const daftarTodoEl = document.getElementById("daftarTodo");
+
+    function simpanTodo() {
+      localStorage.setItem("daftarTodo", JSON.stringify(daftarTodo));
+    }
+
+    function tampilkanTodo() {
+      daftarTodoEl.innerHTML = "";
+
+      if (daftarTodo.length === 0) {
+        daftarTodoEl.innerHTML = "<li>Belum ada todo.</li>";
+        return;
+      }
+
+      for (let i = 0; i < daftarTodo.length; i++) {
+        const todo = daftarTodo[i];
+        const li = document.createElement("li");
+        li.className = "todo-item";
+
+        if (todo.selesai) {
+          li.classList.add("selesai");
+        }
+
+        const teks = document.createElement("span");
+        teks.textContent = todo.teks;
+        teks.addEventListener("click", function () {
+          tandaiTodo(i);
+        });
+
+        const tombolHapus = document.createElement("button");
+        tombolHapus.className = "danger";
+        tombolHapus.textContent = "Hapus";
+        tombolHapus.addEventListener("click", function () {
+          hapusTodo(i);
+        });
+
+        li.appendChild(teks);
+        li.appendChild(tombolHapus);
+        daftarTodoEl.appendChild(li);
+      }
+    }
+
+    formTodo.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const teksTodo = inputTodo.value.trim();
+
+      if (teksTodo === "") return;
+
+      daftarTodo.push({ teks: teksTodo, selesai: false });
+      simpanTodo();
+      tampilkanTodo();
+      formTodo.reset();
+    });
+
+    function tandaiTodo(index) {
+      daftarTodo[index].selesai = !daftarTodo[index].selesai;
+      simpanTodo();
+      tampilkanTodo();
+    }
+
+    function hapusTodo(index) {
+      daftarTodo.splice(index, 1);
+      simpanTodo();
+      tampilkanTodo();
+    }
+
+    tampilkanTodo();
+  </script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latihan 1 JavaScript Dasar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 0 16px;
+      background-color: #f4f6f8;
+      color: #1f2937;
+    }
+
+    section {
+      background-color: white;
+      padding: 18px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+    }
+
+    h1, h2 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin-top: 8px;
+    }
+
+    input, button {
+      padding: 8px;
+      margin-top: 4px;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .hasil {
+      margin-top: 12px;
+      padding: 10px;
+      background-color: #eef2ff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Latihan 1: JavaScript Dasar</h1>
+
+  <section>
+    <h2>1. Data Diri</h2>
+    <div id="dataDiri"></div>
+  </section>
+
+  <section>
+    <h2>2. Pengecekan Kelulusan</h2>
+    <label for="inputNilaiLulus">Nilai:</label>
+    <input type="number" id="inputNilaiLulus" min="0" max="100" value="75">
+    <button id="tombolLulus">Cek Nilai</button>
+    <div class="hasil" id="hasilLulus"></div>
+  </section>
+
+  <section>
+    <h2>3. Kategori Umur</h2>
+    <label for="inputUmur">Umur:</label>
+    <input type="number" id="inputUmur" min="0" value="20">
+    <button id="tombolUmur">Cek Umur</button>
+    <div class="hasil" id="hasilUmur"></div>
+  </section>
+
+  <section>
+    <h2>4. Konversi Angka Hari</h2>
+    <label for="inputHari">Angka hari (1-7):</label>
+    <input type="number" id="inputHari" min="1" max="7" value="1">
+    <button id="tombolHari">Tampilkan Hari</button>
+    <div class="hasil" id="hasilHari"></div>
+  </section>
+
+  <section>
+    <h2>5. Kalkulator Grade</h2>
+    <label for="inputNilaiGrade">Nilai:</label>
+    <input type="number" id="inputNilaiGrade" min="0" max="100" value="85">
+    <button id="tombolGrade">Hitung Grade</button>
+    <div class="hasil" id="hasilGrade"></div>
+  </section>
+
+  <script>
+    const nama = "Stevan Immanuel Simbolon";
+    const kotaAsal = "Bandar Lampung";
+
+    let umur = 21;
+
+    document.getElementById("dataDiri").textContent =
+      "Nama: " + nama + ", Umur: " + umur + " tahun, Kota asal: " + kotaAsal;
+
+    document.getElementById("tombolLulus").addEventListener("click", function () {
+      const nilai = Number(document.getElementById("inputNilaiLulus").value);
+      const hasil = document.getElementById("hasilLulus");
+
+      if (nilai >= 70) {
+        hasil.textContent = "Lulus karena nilai lebih besar atau sama dengan 70.";
+      } else {
+        hasil.textContent = "Belum lulus karena nilai masih di bawah 70.";
+      }
+    });
+
+    document.getElementById("tombolUmur").addEventListener("click", function () {
+      const nilaiUmur = Number(document.getElementById("inputUmur").value);
+      let kategori = "";
+
+      if (nilaiUmur < 12) {
+        kategori = "Anak";
+      } else if (nilaiUmur <= 17) {
+        kategori = "Remaja";
+      } else if (nilaiUmur <= 59) {
+        kategori = "Dewasa";
+      } else {
+        kategori = "Lansia";
+      }
+
+      document.getElementById("hasilUmur").textContent = "Kategori umur: " + kategori;
+    });
+
+    document.getElementById("tombolHari").addEventListener("click", function () {
+      const angkaHari = Number(document.getElementById("inputHari").value);
+      let namaHari = "";
+
+      switch (angkaHari) {
+        case 1:
+          namaHari = "Monday";
+          break;
+        case 2:
+          namaHari = "Tuesday";
+          break;
+        case 3:
+          namaHari = "Wednesday";
+          break;
+        case 4:
+          namaHari = "Thursday";
+          break;
+        case 5:
+          namaHari = "Friday";
+          break;
+        case 6:
+          namaHari = "Saturday";
+          break;
+        case 7:
+          namaHari = "Sunday";
+          break;
+        default:
+          namaHari = "Angka harus dari 1 sampai 7.";
+      }
+
+      document.getElementById("hasilHari").textContent = namaHari;
+    });
+
+    document.getElementById("tombolGrade").addEventListener("click", function () {
+      const nilai = Number(document.getElementById("inputNilaiGrade").value);
+      const grade = nilai >= 85 ? "A" : nilai >= 70 ? "B" : nilai >= 60 ? "C" : "D";
+      document.getElementById("hasilGrade").textContent = "Grade nilai: " + grade;
+    });
+  </script>
+</body>
+</html>

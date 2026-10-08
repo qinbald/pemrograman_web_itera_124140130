@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latihan 2 Array dan CRUD Mahasiswa</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 16px;
+      background-color: #f4f6f8;
+      color: #1f2937;
+    }
+
+    section {
+      background-color: white;
+      padding: 18px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+    }
+
+    h1, h2 {
+      margin-top: 0;
+    }
+
+    .form-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 8px 12px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background-color: #2563eb;
+      color: white;
+    }
+
+    button.batal {
+      background-color: #6b7280;
+    }
+
+    button.hapus {
+      background-color: #ef4444;
+    }
+
+    button.edit {
+      background-color: #f59e0b;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f3f4f6;
+    }
+
+    .aksi-btn {
+      display: flex;
+      gap: 6px;
+    }
+
+    .info-box {
+      background-color: #e0f2fe;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+
+    .tombol-baris {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Latihan 2: Array & CRUD Mahasiswa</h1>
+
+  <section>
+    <h2 id="judulForm">Tambah Data Mahasiswa</h2>
+    <form id="formMahasiswa">
+      <div class="form-group">
+        <div class="field">
+          <label for="nama">Nama</label>
+          <input type="text" id="nama" required>
+        </div>
+        <div class="field">
+          <label for="nim">NIM</label>
+          <input type="text" id="nim" required>
+        </div>
+        <div class="field">
+          <label for="jurusan">Jurusan</label>
+          <input type="text" id="jurusan" required>
+        </div>
+        <div class="field">
+          <label for="nilai">Nilai</label>
+          <input type="number" id="nilai" min="0" max="100" required>
+        </div>
+      </div>
+      <button type="submit" id="tombolSimpan">Simpan</button>
+      <button type="button" id="tombolBatal" class="batal" style="display:none;">Batal</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>Aksi & Analisis Array</h2>
+    <div class="tombol-baris">
+      <button id="tombolTertinggi">Cari Nilai Tertinggi</button>
+      <button id="tombolAtasRata">Filter Di Atas Rata-rata</button>
+      <button id="tombolUrutAsc">Urut Nama A-Z</button>
+      <button id="tombolUrutDesc">Urut Nama Z-A</button>
+      <button id="tombolResetData" class="batal">Tampilkan Semua Data</button>
+    </div>
+    <div class="info-box" id="infoAnalisis">Semua data sedang ditampilkan.</div>
+
+    <h2>Daftar Mahasiswa</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama</th>
+          <th>NIM</th>
+          <th>Jurusan</th>
+          <th>Nilai</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="tabelMahasiswa"></tbody>
+    </table>
+  </section>
+
+  <script>
+    let daftarMahasiswa = [
+      { nama: "Budi Santoso", nim: "124140001", jurusan: "Teknik Informatika", nilai: 85 },
+      { nama: "Siti Rahma", nim: "124140002", jurusan: "Sistem Informasi", nilai: 90 },
+      { nama: "Andi Wijaya", nim: "124140003", jurusan: "Teknik Informatika", nilai: 70 },
+      { nama: "Dewi Lestari", nim: "124140004", jurusan: "Teknik Elektro", nilai: 60 },
+      { nama: "Eko Prasetyo", nim: "124140005", jurusan: "Sistem Informasi", nilai: 95 }
+    ];
+
+    let indexEdit = -1;
+
+    function tampilkanTabel(data) {
+      const tbody = document.getElementById("tabelMahasiswa");
+      tbody.innerHTML = "";
+
+      if (data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6">Data tidak ditemukan.</td></tr>';
+        return;
+      }
+
+      for (let i = 0; i < data.length; i++) {
+        const mhs = data[i];
+        const tr = document.createElement("tr");
+
+        const indexAsli = daftarMahasiswa.indexOf(mhs);
+
+        tr.innerHTML =
+          "<td>" + (i + 1) + "</td>" +
+          "<td>" + mhs.nama + "</td>" +
+          "<td>" + mhs.nim + "</td>" +
+          "<td>" + mhs.jurusan + "</td>" +
+          "<td>" + mhs.nilai + "</td>" +
+          "<td class='aksi-btn'>" +
+            "<button class='edit' onclick='editMahasiswa(" + indexAsli + ")'>Edit</button>" +
+            "<button class='hapus' onclick='hapusMahasiswa(" + indexAsli + ")'>Hapus</button>" +
+          "</td>";
+
+        tbody.appendChild(tr);
+      }
+    }
+
+    function cariNilaiTertinggi() {
+      if (daftarMahasiswa.length === 0) return;
+      const tertinggi = daftarMahasiswa.reduce(function (max, mhs) {
+        return mhs.nilai > max.nilai ? mhs : max;
+      }, daftarMahasiswa[0]);
+
+      tampilkanTabel([tertinggi]);
+      document.getElementById("infoAnalisis").textContent =
+        "Mahasiswa dengan nilai tertinggi: " + tertinggi.nama + " (" + tertinggi.nilai + ")";
+    }
+
+    function filterDiAtasRataRata() {
+      if (daftarMahasiswa.length === 0) return;
+
+      let total = 0;
+      for (let i = 0; i < daftarMahasiswa.length; i++) {
+        total = total + daftarMahasiswa[i].nilai;
+      }
+      const rataRata = total / daftarMahasiswa.length;
+
+      const hasilFilter = daftarMahasiswa.filter(function (mhs) {
+        return mhs.nilai > rataRata;
+      });
+
+      tampilkanTabel(hasilFilter);
+      document.getElementById("infoAnalisis").textContent =
+        "Rata-rata nilai: " + rataRata.toFixed(1) + ". Menampilkan " + hasilFilter.length + " mahasiswa di atas rata-rata.";
+    }
+
+    function urutkanNama(tipe) {
+      const dataUrut = daftarMahasiswa.slice();
+
+      dataUrut.sort(function (a, b) {
+        if (tipe === "asc") {
+          return a.nama.localeCompare(b.nama);
+        } else {
+          return b.nama.localeCompare(a.nama);
+        }
+      });
+
+      tampilkanTabel(dataUrut);
+      document.getElementById("infoAnalisis").textContent =
+        "Data diurutkan berdasarkan nama secara " + (tipe === "asc" ? "Ascending (A-Z)" : "Descending (Z-A)") + ".";
+    }
+
+    function editMahasiswa(index) {
+      indexEdit = index;
+      const mhs = daftarMahasiswa[index];
+
+      document.getElementById("nama").value = mhs.nama;
+      document.getElementById("nim").value = mhs.nim;
+      document.getElementById("jurusan").value = mhs.jurusan;
+      document.getElementById("nilai").value = mhs.nilai;
+
+      document.getElementById("judulForm").textContent = "Edit Data Mahasiswa";
+      document.getElementById("tombolSimpan").textContent = "Update";
+      document.getElementById("tombolBatal").style.display = "inline-block";
+    }
+
+    function hapusMahasiswa(index) {
+      daftarMahasiswa.splice(index, 1);
+      tampilkanTabel(daftarMahasiswa);
+      document.getElementById("infoAnalisis").textContent = "Data mahasiswa berhasil dihapus.";
+    }
+
+    document.getElementById("tombolBatal").addEventListener("click", function () {
+      indexEdit = -1;
+      document.getElementById("formMahasiswa").reset();
+      document.getElementById("judulForm").textContent = "Tambah Data Mahasiswa";
+      document.getElementById("tombolSimpan").textContent = "Simpan";
+      document.getElementById("tombolBatal").style.display = "none";
+    });
+
+    document.getElementById("formMahasiswa").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const mhsBaru = {
+        nama: document.getElementById("nama").value,
+        nim: document.getElementById("nim").value,
+        jurusan: document.getElementById("jurusan").value,
+        nilai: Number(document.getElementById("nilai").value)
+      };
+
+      if (indexEdit === -1) {
+        daftarMahasiswa.push(mhsBaru);
+        document.getElementById("infoAnalisis").textContent = "Data baru berhasil ditambahkan.";
+      } else {
+        daftarMahasiswa[indexEdit] = mhsBaru;
+        document.getElementById("infoAnalisis").textContent = "Data berhasil diperbarui.";
+        document.getElementById("tombolBatal").click();
+      }
+
+      document.getElementById("formMahasiswa").reset();
+      tampilkanTabel(daftarMahasiswa);
+    });
+
+    document.getElementById("tombolTertinggi").addEventListener("click", cariNilaiTertinggi);
+    document.getElementById("tombolAtasRata").addEventListener("click", filterDiAtasRataRata);
+    document.getElementById("tombolUrutAsc").addEventListener("click", function () { urutkanNama("asc"); });
+    document.getElementById("tombolUrutDesc").addEventListener("click", function () { urutkanNama("desc"); });
+    document.getElementById("tombolResetData").addEventListener("click", function () {
+      tampilkanTabel(daftarMahasiswa);
+      document.getElementById("infoAnalisis").textContent = "Semua data sedang ditampilkan.";
+    });
+
+    tampilkanTabel(daftarMahasiswa);
+  </script>
+</body>
+</html>
