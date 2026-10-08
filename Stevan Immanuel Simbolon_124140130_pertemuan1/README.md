@@ -1,6 +1,6 @@
-**Nama :** Stevan Immanuel Simbolon
-**NIM :** 124140130
-**Kelas Praktikum :** Pengembangan Aplikasi Web - RA
+- **Nama :** Stevan Immanuel Simbolon
+- **NIM :** 124140130
+- **Kelas Praktikum :** Pengembangan Aplikasi Web - RA
 
 ## Deskripsi
 
