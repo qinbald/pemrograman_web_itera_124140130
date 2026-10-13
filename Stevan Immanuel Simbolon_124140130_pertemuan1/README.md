@@ -16,15 +16,15 @@ Aplikasi ini digunakan untuk mencatat barang yang dibeli di kantin dan menghitun
 
 ## Fitur
 
-1. Menambahkan nama barang, harga satuan, dan jumlah barang.
-2. Memvalidasi input sebelum barang masuk keranjang.
-3. Menampilkan subtotal setiap barang.
-4. Menghitung total belanja secara otomatis.
-5. Memberikan diskon 10% jika total belanja minimal Rp50.000.
-6. Menghitung kembalian dari uang pembayaran.
-7. Menghapus barang dari tabel keranjang.
-8. Menyimpan keranjang di **localStorage**.
-9. Mengosongkan keranjang melalui tombol **Transaksi Baru**.
+- [x] Menambahkan nama barang, harga satuan, dan jumlah barang.
+- [x] Memvalidasi input sebelum barang masuk keranjang.
+- [x] Menampilkan subtotal setiap barang.
+- [x] Menghitung total belanja secara otomatis.
+- [x] Memberikan diskon 10% jika total belanja minimal Rp50.000.
+- [x] Menghitung kembalian dari uang pembayaran.
+- [x] Menghapus barang dari tabel keranjang.
+- [x] Menyimpan keranjang di **localStorage**.
+- [x] Mengosongkan keranjang melalui tombol **Transaksi Baru**.
 
 ## Validasi Input
 
