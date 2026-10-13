@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latihan 1 – JavaScript Dasar</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 700px; margin: 30px auto; padding: 0 16px; background: #f4f6f8; color: #1f2937; }
+    section { background: white; padding: 18px; margin-bottom: 16px; border-radius: 8px; }
+    h1, h2 { margin-top: 0; }
+    label { display: block; margin-top: 8px; font-weight: bold; }
+    input, select { padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px; width: 100%; box-sizing: border-box; }
+    button { margin-top: 10px; padding: 8px 16px; cursor: pointer; background: #2563eb; color: white; border: none; border-radius: 4px; }
+    .hasil { margin-top: 10px; padding: 10px; background: #eef2ff; border-radius: 4px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>Latihan 1: JavaScript Dasar</h1>
+
+  <section>
+    <h2>1. Data Diri</h2>
+    <div id="dataDiri" class="hasil"></div>
+  </section>
+
+  <section>
+    <h2>2. Pengecekan Kelulusan</h2>
+    <label for="inputNilaiLulus">Nilai (0–100):</label>
+    <input type="number" id="inputNilaiLulus" min="0" max="100" value="75">
+    <button onclick="tampilLulus()">Cek Nilai</button>
+    <div class="hasil" id="hasilLulus"></div>
+  </section>
+
+  <section>
+    <h2>3. Kategori Umur</h2>
+    <label for="inputUmur">Umur:</label>
+    <input type="number" id="inputUmur" min="0" value="20">
+    <button onclick="tampilUmur()">Cek Umur</button>
+    <div class="hasil" id="hasilUmur"></div>
+  </section>
+
+  <section>
+    <h2>4. Konversi Angka Hari</h2>
+    <label for="inputHari">Angka hari (1–7):</label>
+    <input type="number" id="inputHari" min="1" max="7" value="1">
+    <button onclick="tampilHari()">Tampilkan Hari</button>
+    <div class="hasil" id="hasilHari"></div>
+  </section>
+
+  <section>
+    <h2>5. Kalkulator Grade</h2>
+    <label for="inputNilaiGrade">Nilai (0–100):</label>
+    <input type="number" id="inputNilaiGrade" min="0" max="100" value="85">
+    <button onclick="tampilGrade()">Hitung Grade</button>
+    <div class="hasil" id="hasilGrade"></div>
+  </section>
+
+  <script src="Latihan1.js"></script>
+  <script>
+    // Tampilkan data diri saat halaman dibuka
+    document.getElementById("dataDiri").textContent =
+      `Nama: ${nama}, Umur: ${umur} tahun, Kota asal: ${kotaAsal}`;
+
+    function tampilLulus() {
+      const nilai = Number(document.getElementById("inputNilaiLulus").value);
+      document.getElementById("hasilLulus").textContent = cekKelulusan(nilai);
+    }
+
+    function tampilUmur() {
+      const u = Number(document.getElementById("inputUmur").value);
+      document.getElementById("hasilUmur").textContent = `Kategori umur: ${cekKategoriUmur(u)}`;
+    }
+
+    function tampilHari() {
+      const h = Number(document.getElementById("inputHari").value);
+      document.getElementById("hasilHari").textContent = konversiHari(h);
+    }
+
+    function tampilGrade() {
+      const nilai = Number(document.getElementById("inputNilaiGrade").value);
+      document.getElementById("hasilGrade").textContent = `Grade: ${hitungGrade(nilai)}`;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul Latihan JavaScript</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 16px;
+      background: #f4f6f8;
+      color: #1f2937;
+    }
+    h1 { text-align: center; margin-bottom: 24px; }
+    h2 { margin-top: 0; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px; }
+    h3 { margin: 16px 0 6px; }
+    section {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    label { display: block; margin-top: 8px; font-weight: bold; font-size: 14px; }
+    input {
+      padding: 8px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 100%;
+    }
+    button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      cursor: pointer;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    button.abu  { background: #6b7280; }
+    button.merah { background: #ef4444; }
+    button.kuning { background: #f59e0b; }
+    .hasil {
+      margin-top: 10px;
+      padding: 10px;
+      background: #eef2ff;
+      border-radius: 4px;
+      white-space: pre-wrap;
+      font-family: monospace;
+      font-size: 13px;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    .form-inline { display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap; }
+    .form-inline .field { flex: 1; min-width: 120px; }
+    .form-group { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+    .form-group .field { flex: 1; min-width: 140px; }
+    .tombol-baris { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
+    th, td { border: 1px solid #ddd; padding: 7px 10px; text-align: left; }
+    th { background: #f3f4f6; }
+    .aksi-btn { display: flex; gap: 6px; }
+    .info-box { background: #e0f2fe; padding: 8px 12px; border-radius: 4px; margin-bottom: 10px; font-size: 13px; }
+    .error { color: #dc2626; font-size: 12px; min-height: 16px; }
+    .daftar-post, .daftar-todo { padding: 0; list-style: none; }
+    .post { padding: 10px 0; border-bottom: 1px solid #e5e7eb; }
+    .post h4 { margin: 0 0 4px; text-transform: capitalize; }
+    .post p { margin: 0; font-size: 13px; color: #6b7280; }
+    .todo-item { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e5e7eb; gap: 10px; }
+    .todo-item.selesai span { text-decoration: line-through; color: #9ca3af; }
+    .todo-item span { flex: 1; cursor: pointer; }
+    .todo-form { display: flex; gap: 8px; margin-bottom: 10px; }
+    .todo-form input { flex: 1; }
+    .pagination { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+    .search-bar { display: flex; gap: 8px; margin-bottom: 10px; }
+    .search-bar input { flex: 1; }
+    nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; justify-content: center; }
+    nav a { padding: 8px 16px; background: #2563eb; color: white; text-decoration: none; border-radius: 4px; font-size: 14px; }
+    nav a:hover { background: #1d4ed8; }
+  </style>
+</head>
+<body>
+  <h1>Modul Latihan JavaScript</h1>
+  <nav>
+    <a href="#latihan1">Latihan 1</a>
+    <a href="#latihan2">Latihan 2</a>
+    <a href="#latihan3">Latihan 3</a>
+    <a href="#latihan4">Latihan 4</a>
+  </nav>
+
+  <!-- ===== LATIHAN 1 ===== -->
+  <section id="latihan1">
+    <h2>Latihan 1: JavaScript Dasar</h2>
+
+    <h3>1. Data Diri</h3>
+    <div class="hasil" id="dataDiri"></div>
+
+    <h3>2. Pengecekan Kelulusan</h3>
+    <div class="form-inline">
+      <div class="field">
+        <label for="inputNilaiLulus">Nilai (0–100):</label>
+        <input type="number" id="inputNilaiLulus" min="0" max="100" value="75">
+      </div>
+      <button onclick="tampilLulus()">Cek Nilai</button>
+    </div>
+    <div class="hasil" id="hasilLulus"></div>
+
+    <h3>3. Kategori Umur</h3>
+    <div class="form-inline">
+      <div class="field">
+        <label for="inputUmur">Umur:</label>
+        <input type="number" id="inputUmur" min="0" value="20">
+      </div>
+      <button onclick="tampilUmur()">Cek Umur</button>
+    </div>
+    <div class="hasil" id="hasilUmur"></div>
+
+    <h3>4. Konversi Angka Hari</h3>
+    <div class="form-inline">
+      <div class="field">
+        <label for="inputHari">Angka hari (1–7):</label>
+        <input type="number" id="inputHari" min="1" max="7" value="1">
+      </div>
+      <button onclick="tampilHari()">Tampilkan Hari</button>
+    </div>
+    <div class="hasil" id="hasilHari"></div>
+
+    <h3>5. Kalkulator Grade</h3>
+    <div class="form-inline">
+      <div class="field">
+        <label for="inputNilaiGrade">Nilai (0–100):</label>
+        <input type="number" id="inputNilaiGrade" min="0" max="100" value="85">
+      </div>
+      <button onclick="tampilGrade()">Hitung Grade</button>
+    </div>
+    <div class="hasil" id="hasilGrade"></div>
+  </section>
+
+  <!-- ===== LATIHAN 2 ===== -->
+  <section id="latihan2">
+    <h2>Latihan 2: Loop, Fungsi & Logika Dasar</h2>
+
+    <h3>1. Tabel Perkalian (1–10)</h3>
+    <div class="form-inline">
+      <div class="field">
+        <label for="inputAngkaPerkalian">Pilih Angka:</label>
+        <input type="number" id="inputAngkaPerkalian" value="7">
+      </div>
+      <button onclick="tampilPerkalian()">Cetak Tabel</button>
+    </div>
+    <div class="hasil" id="hasilPerkalian"></div>
+
+    <h3>2. Hitung Faktorial</h3>
+    <div class="form-inline">
+      <div class="field">
+        <label for="inputFaktorial">Angka (0–20):</label>
+        <input type="number" id="inputFaktorial" min="0" max="20" value="5">
+      </div>
+      <button onclick="tampilFaktorial()">Hitung</button>
+    </div>
+    <div class="hasil" id="hasilFaktorial"></div>
+
+    <h3>3. Cek Bilangan Prima</h3>
+    <div class="form-inline">
+      <div class="field">
+        <label for="inputPrima">Angka:</label>
+        <input type="number" id="inputPrima" min="1" value="17">
+      </div>
+      <button onclick="tampilPrima()">Cek Prima</button>
+    </div>
+    <div class="hasil" id="hasilPrima"></div>
+
+    <h3>4. Kalkulator BMI</h3>
+    <div class="form-inline">
+      <div class="field">
+        <label for="inputBerat">Berat (kg):</label>
+        <input type="number" id="inputBerat" min="1" value="65">
+      </div>
+      <div class="field">
+        <label for="inputTinggi">Tinggi (cm):</label>
+        <input type="number" id="inputTinggi" min="1" value="170">
+      </div>
+      <button id="tombolBMI">Hitung BMI</button>
+    </div>
+    <div class="hasil" id="hasilBMI"></div>
+
+    <h3>5. FizzBuzz (1–100)</h3>
+    <button onclick="tampilFizzBuzz()">Jalankan FizzBuzz</button>
+    <div class="hasil" id="hasilFizzBuzz">Klik tombol untuk menjalankan.</div>
+  </section>
+
+  <!-- ===== LATIHAN 3 ===== -->
+  <section id="latihan3">
+    <h2>Latihan 3: Array & CRUD Mahasiswa</h2>
+
+    <h3 id="judulFormL3">Tambah Data Mahasiswa</h3>
+    <form id="formMahasiswaL3">
+      <div class="form-group">
+        <div class="field">
+          <label for="l3Nama">Nama</label>
+          <input type="text" id="l3Nama" required>
+        </div>
+        <div class="field">
+          <label for="l3Nim">NIM</label>
+          <input type="text" id="l3Nim" required>
+        </div>
+        <div class="field">
+          <label for="l3Jurusan">Jurusan</label>
+          <input type="text" id="l3Jurusan" required>
+        </div>
+        <div class="field">
+          <label for="l3Nilai">Nilai</label>
+          <input type="number" id="l3Nilai" min="0" max="100" required>
+        </div>
+      </div>
+      <button type="submit" id="l3TombolSimpan">Simpan</button>
+      <button type="button" id="l3TombolBatal" class="abu" style="display:none;">Batal</button>
+    </form>
+
+    <div class="tombol-baris" style="margin-top:14px;">
+      <button onclick="l3CariTertinggi()">Nilai Tertinggi</button>
+      <button onclick="l3FilterRata()">Di Atas Rata-rata</button>
+      <button onclick="l3Urut('asc')">Urut A–Z</button>
+      <button onclick="l3Urut('desc')">Urut Z–A</button>
+      <button class="abu" onclick="l3Reset()">Tampilkan Semua</button>
+    </div>
+    <div class="info-box" id="l3Info">Semua data ditampilkan.</div>
+
+    <table>
+      <thead>
+        <tr><th>No</th><th>Nama</th><th>NIM</th><th>Jurusan</th><th>Nilai</th><th>Aksi</th></tr>
+      </thead>
+      <tbody id="l3Tabel"></tbody>
+    </table>
+  </section>
+
+  <!-- ===== LATIHAN 4 ===== -->
+  <section id="latihan4">
+    <h2>Latihan 4: API Fetch, Validasi & LocalStorage</h2>
+
+    <h3>1. Data Mahasiswa (LocalStorage)</h3>
+    <form id="formMahasiswaL4" novalidate>
+      <div class="form-group">
+        <div class="field">
+          <label for="l4Nama">Nama</label>
+          <input type="text" id="l4Nama" placeholder="Min. 3 karakter">
+          <small class="error" id="l4ErrNama"></small>
+        </div>
+        <div class="field">
+          <label for="l4Nim">NIM</label>
+          <input type="text" id="l4Nim" placeholder="Min. 5 karakter">
+          <small class="error" id="l4ErrNim"></small>
+        </div>
+        <div class="field">
+          <label for="l4Jurusan">Jurusan</label>
+          <input type="text" id="l4Jurusan">
+          <small class="error" id="l4ErrJurusan"></small>
+        </div>
+      </div>
+      <button type="submit" id="l4TombolSimpan">Tambah Mahasiswa</button>
+      <button type="button" class="abu" id="l4TombolBatal" hidden>Batal Edit</button>
+    </form>
+    <table>
+      <thead>
+        <tr><th>No</th><th>Nama</th><th>NIM</th><th>Jurusan</th><th>Aksi</th></tr>
+      </thead>
+      <tbody id="l4Tabel"></tbody>
+    </table>
+
+    <h3>2. Daftar Post dari API</h3>
+    <div class="search-bar">
+      <input type="search" id="l4CariPost" placeholder="Cari berdasarkan title...">
+      <button onclick="l4Cari()">Cari</button>
+    </div>
+    <p id="l4PesanPost">Memuat data post...</p>
+    <ul class="daftar-post" id="l4DaftarPost"></ul>
+    <div class="pagination">
+      <button class="abu" id="l4BtnPrev" disabled>Previous</button>
+      <span id="l4InfoHalaman">Halaman 1</span>
+      <button id="l4BtnNext">Next</button>
+    </div>
+
+    <h3>3. Todo List</h3>
+    <form class="todo-form" id="formTodo">
+      <input type="text" id="inputTodo" placeholder="Tulis kegiatan..." required>
+      <button type="submit">Tambah</button>
+    </form>
+    <ul class="daftar-todo" id="daftarTodo"></ul>
+  </section>
+
+  <script>
+    /* ============================================================
+       LATIHAN 1 – JavaScript Dasar
+    ============================================================ */
+    const L1 = (() => {
+      const nama = "Stevan Immanuel Simbolon";
+      const kotaAsal = "Bandar Lampung";
+      const umur = 21;
+
+      function cekKelulusan(nilai) {
+        return nilai >= 70
+          ? "Lulus karena nilai lebih besar atau sama dengan 70."
+          : "Belum lulus karena nilai masih di bawah 70.";
+      }
+
+      function cekKategoriUmur(u) {
+        if (u < 12) return "Anak";
+        if (u <= 17) return "Remaja";
+        if (u <= 59) return "Dewasa";
+        return "Lansia";
+      }
+
+      function konversiHari(angka) {
+        const hari = ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        return hari[angka] || "Angka harus dari 1 sampai 7.";
+      }
+
+      function hitungGrade(nilai) {
+        return nilai >= 85 ? "A" : nilai >= 70 ? "B" : nilai >= 60 ? "C" : "D";
+      }
+
+      // Init
+      document.getElementById("dataDiri").textContent =
+        `Nama: ${nama}, Umur: ${umur} tahun, Kota asal: ${kotaAsal}`;
+
+      return { cekKelulusan, cekKategoriUmur, konversiHari, hitungGrade };
+    })();
+
+    function tampilLulus() {
+      const nilai = Number(document.getElementById("inputNilaiLulus").value);
+      document.getElementById("hasilLulus").textContent = L1.cekKelulusan(nilai);
+    }
+    function tampilUmur() {
+      const u = Number(document.getElementById("inputUmur").value);
+      document.getElementById("hasilUmur").textContent = `Kategori umur: ${L1.cekKategoriUmur(u)}`;
+    }
+    function tampilHari() {
+      const h = Number(document.getElementById("inputHari").value);
+      document.getElementById("hasilHari").textContent = L1.konversiHari(h);
+    }
+    function tampilGrade() {
+      const nilai = Number(document.getElementById("inputNilaiGrade").value);
+      document.getElementById("hasilGrade").textContent = `Grade: ${L1.hitungGrade(nilai)}`;
+    }
+
+    /* ============================================================
+       LATIHAN 2 – Loop, Fungsi & Logika Dasar
+    ============================================================ */
+    const L2 = (() => {
+      function faktorial(n) {
+        if (n < 0) return null;
+        let hasil = 1;
+        for (let i = 2; i <= n; i++) hasil *= i;
+        return hasil;
+      }
+
+      function adalahPrima(n) {
+        if (n < 2) return false;
+        for (let i = 2; i <= Math.sqrt(n); i++) {
+          if (n % i === 0) return false;
+        }
+        return true;
+      }
+
+      function hitungBMI(beratKg, tinggiCm) {
+        const tinggiM = tinggiCm / 100;
+        const bmi = beratKg / (tinggiM * tinggiM);
+        let kategori;
+        if (bmi < 18.5) kategori = "Kurus";
+        else if (bmi < 25) kategori = "Normal";
+        else if (bmi < 30) kategori = "Gemuk";
+        else kategori = "Obesitas";
+        return { bmi: bmi.toFixed(2), kategori };
+      }
+
+      // Event handler BMI
+      document.getElementById("tombolBMI").addEventListener("click", function () {
+        const berat = Number(document.getElementById("inputBerat").value);
+        const tinggi = Number(document.getElementById("inputTinggi").value);
+        const hasil = hitungBMI(berat, tinggi);
+        document.getElementById("hasilBMI").textContent =
+          `BMI: ${hasil.bmi} → Kategori: ${hasil.kategori}`;
+      });
+
+      return { faktorial, adalahPrima, hitungBMI };
+    })();
+
+    function tampilPerkalian() {
+      const n = Number(document.getElementById("inputAngkaPerkalian").value);
+      let out = "";
+      for (let i = 1; i <= 10; i++) out += `${n} x ${i} = ${n * i}\n`;
+      document.getElementById("hasilPerkalian").textContent = out;
+    }
+    function tampilFaktorial() {
+      const n = Number(document.getElementById("inputFaktorial").value);
+      document.getElementById("hasilFaktorial").textContent = `${n}! = ${L2.faktorial(n)}`;
+    }
+    function tampilPrima() {
+      const n = Number(document.getElementById("inputPrima").value);
+      document.getElementById("hasilPrima").textContent =
+        `${n} adalah ${L2.adalahPrima(n) ? "BILANGAN PRIMA ✓" : "BUKAN prima ✗"}`;
+    }
+    function tampilFizzBuzz() {
+      let out = "";
+      for (let i = 1; i <= 100; i++) {
+        if (i % 15 === 0) out += `${i}: FizzBuzz\n`;
+        else if (i % 3 === 0) out += `${i}: Fizz\n`;
+        else if (i % 5 === 0) out += `${i}: Buzz\n`;
+        else out += `${i}\n`;
+      }
+      document.getElementById("hasilFizzBuzz").textContent = out;
+    }
+    tampilPerkalian();
+
+    /* ============================================================
+       LATIHAN 3 – Array & CRUD Mahasiswa
+    ============================================================ */
+    const L3 = (() => {
+      let data = [
+        { nama: "Budi Santoso",  nim: "124140001", jurusan: "Teknik Informatika", nilai: 85 },
+        { nama: "Siti Rahma",    nim: "124140002", jurusan: "Sistem Informasi",   nilai: 90 },
+        { nama: "Andi Wijaya",   nim: "124140003", jurusan: "Teknik Informatika", nilai: 70 },
+        { nama: "Dewi Lestari",  nim: "124140004", jurusan: "Teknik Elektro",     nilai: 60 },
+        { nama: "Eko Prasetyo",  nim: "124140005", jurusan: "Sistem Informasi",   nilai: 95 }
+      ];
+      let indexEdit = -1;
+
+      const tbody   = document.getElementById("l3Tabel");
+      const info    = document.getElementById("l3Info");
+      const form    = document.getElementById("formMahasiswaL3");
+      const judul   = document.getElementById("judulFormL3");
+      const btnSave = document.getElementById("l3TombolSimpan");
+      const btnBatal= document.getElementById("l3TombolBatal");
+
+      function render(tampil = data) {
+        tbody.innerHTML = "";
+        if (tampil.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6">Data tidak ditemukan.</td></tr>';
+          return;
+        }
+        tampil.forEach((mhs, i) => {
+          const idxAsli = data.indexOf(mhs);
+          const tr = document.createElement("tr");
+          tr.innerHTML =
+            `<td>${i + 1}</td><td>${mhs.nama}</td><td>${mhs.nim}</td>` +
+            `<td>${mhs.jurusan}</td><td>${mhs.nilai}</td>` +
+            `<td class="aksi-btn">` +
+              `<button class="kuning" onclick="L3.edit(${idxAsli})">Edit</button>` +
+              `<button class="merah" onclick="L3.hapus(${idxAsli})">Hapus</button>` +
+            `</td>`;
+          tbody.appendChild(tr);
+        });
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const mhs = {
+          nama:    document.getElementById("l3Nama").value,
+          nim:     document.getElementById("l3Nim").value,
+          jurusan: document.getElementById("l3Jurusan").value,
+          nilai:   Number(document.getElementById("l3Nilai").value)
+        };
+        if (indexEdit === -1) {
+          data.push(mhs);
+          info.textContent = "Data baru berhasil ditambahkan.";
+        } else {
+          data[indexEdit] = mhs;
+          info.textContent = "Data berhasil diperbarui.";
+          resetForm();
+        }
+        form.reset();
+        render();
+      });
+
+      btnBatal.addEventListener("click", function () {
+        form.reset();
+        resetForm();
+        render();
+      });
+
+      function resetForm() {
+        indexEdit = -1;
+        judul.textContent = "Tambah Data Mahasiswa";
+        btnSave.textContent = "Simpan";
+        btnBatal.style.display = "none";
+      }
+
+      function edit(i) {
+        indexEdit = i;
+        const mhs = data[i];
+        document.getElementById("l3Nama").value    = mhs.nama;
+        document.getElementById("l3Nim").value     = mhs.nim;
+        document.getElementById("l3Jurusan").value = mhs.jurusan;
+        document.getElementById("l3Nilai").value   = mhs.nilai;
+        judul.textContent = "Edit Data Mahasiswa";
+        btnSave.textContent = "Update";
+        btnBatal.style.display = "inline-block";
+      }
+
+      function hapus(i) {
+        data.splice(i, 1);
+        info.textContent = "Data berhasil dihapus.";
+        render();
+      }
+
+      render();
+
+      return {
+        edit, hapus,
+        cariTertinggi() {
+          if (!data.length) return;
+          const t = data.reduce((m, x) => x.nilai > m.nilai ? x : m);
+          render([t]);
+          info.textContent = `Nilai tertinggi: ${t.nama} (${t.nilai})`;
+        },
+        filterRata() {
+          if (!data.length) return;
+          const rata = data.reduce((s, x) => s + x.nilai, 0) / data.length;
+          const hasil = data.filter(x => x.nilai > rata);
+          render(hasil);
+          info.textContent = `Rata-rata: ${rata.toFixed(1)}. Menampilkan ${hasil.length} mahasiswa di atas rata-rata.`;
+        },
+        urut(tipe) {
+          const sorted = [...data].sort((a, b) =>
+            tipe === "asc" ? a.nama.localeCompare(b.nama) : b.nama.localeCompare(a.nama)
+          );
+          render(sorted);
+          info.textContent = `Diurutkan ${tipe === "asc" ? "A–Z" : "Z–A"}.`;
+        },
+        reset() { render(); info.textContent = "Semua data ditampilkan."; }
+      };
+    })();
+
+    function l3CariTertinggi() { L3.cariTertinggi(); }
+    function l3FilterRata()    { L3.filterRata(); }
+    function l3Urut(t)         { L3.urut(t); }
+    function l3Reset()         { L3.reset(); }
+
+    /* ============================================================
+       LATIHAN 4 – API Fetch, Validasi & LocalStorage
+    ============================================================ */
+    (() => {
+      /* --- Mahasiswa LocalStorage --- */
+      let mhsList = JSON.parse(localStorage.getItem("dataMahasiswa") || "[]");
+      let mhsEditIdx = -1;
+
+      const formL4    = document.getElementById("formMahasiswaL4");
+      const l4Tabel   = document.getElementById("l4Tabel");
+      const l4BtnSave = document.getElementById("l4TombolSimpan");
+      const l4BtnBatal= document.getElementById("l4TombolBatal");
+
+      function simpanMhs() { localStorage.setItem("dataMahasiswa", JSON.stringify(mhsList)); }
+
+      function renderMhs() {
+        l4Tabel.innerHTML = "";
+        if (!mhsList.length) {
+          l4Tabel.innerHTML = '<tr><td colspan="5">Belum ada data.</td></tr>';
+          return;
+        }
+        mhsList.forEach((m, i) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML =
+            `<td>${i + 1}</td><td>${m.nama}</td><td>${m.nim}</td><td>${m.jurusan}</td>` +
+            `<td class="aksi-btn">` +
+              `<button class="kuning" onclick="l4Edit(${i})">Edit</button>` +
+              `<button class="merah" onclick="l4Hapus(${i})">Hapus</button>` +
+            `</td>`;
+          l4Tabel.appendChild(tr);
+        });
+      }
+
+      formL4.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const nama    = document.getElementById("l4Nama").value.trim();
+        const nim     = document.getElementById("l4Nim").value.trim();
+        const jurusan = document.getElementById("l4Jurusan").value.trim();
+        let valid = true;
+
+        document.getElementById("l4ErrNama").textContent    = "";
+        document.getElementById("l4ErrNim").textContent     = "";
+        document.getElementById("l4ErrJurusan").textContent = "";
+
+        if (nama.length < 3)    { document.getElementById("l4ErrNama").textContent    = "Nama minimal 3 karakter."; valid = false; }
+        if (nim.length < 5)     { document.getElementById("l4ErrNim").textContent     = "NIM minimal 5 karakter.";  valid = false; }
+        if (!jurusan)           { document.getElementById("l4ErrJurusan").textContent = "Jurusan harus diisi.";     valid = false; }
+        if (!valid) return;
+
+        const obj = { nama, nim, jurusan };
+        if (mhsEditIdx === -1) {
+          mhsList.push(obj);
+        } else {
+          mhsList[mhsEditIdx] = obj;
+          mhsEditIdx = -1;
+          l4BtnSave.textContent = "Tambah Mahasiswa";
+          l4BtnBatal.hidden = true;
+        }
+        simpanMhs();
+        renderMhs();
+        formL4.reset();
+      });
+
+      l4BtnBatal.addEventListener("click", function () {
+        mhsEditIdx = -1;
+        l4BtnSave.textContent = "Tambah Mahasiswa";
+        l4BtnBatal.hidden = true;
+        formL4.reset();
+      });
+
+      window.l4Edit = function (i) {
+        const m = mhsList[i];
+        mhsEditIdx = i;
+        document.getElementById("l4Nama").value    = m.nama;
+        document.getElementById("l4Nim").value     = m.nim;
+        document.getElementById("l4Jurusan").value = m.jurusan;
+        l4BtnSave.textContent = "Update Mahasiswa";
+        l4BtnBatal.hidden = false;
+      };
+      window.l4Hapus = function (i) {
+        mhsList.splice(i, 1);
+        simpanMhs();
+        renderMhs();
+      };
+
+      renderMhs();
+
+      /* --- API Posts --- */
+      let semuaPost = [], postDitampilkan = [], halaman = 1;
+      const PER_HAL = 5;
+      const elPost  = document.getElementById("l4DaftarPost");
+      const elPesan = document.getElementById("l4PesanPost");
+      const elInfo  = document.getElementById("l4InfoHalaman");
+      const btnPrev = document.getElementById("l4BtnPrev");
+      const btnNext = document.getElementById("l4BtnNext");
+
+      function renderPost() {
+        elPost.innerHTML = "";
+        const start = (halaman - 1) * PER_HAL;
+        const items = postDitampilkan.slice(start, start + PER_HAL);
+        const total = Math.max(1, Math.ceil(postDitampilkan.length / PER_HAL));
+
+        elPesan.textContent = items.length ? `Menampilkan ${postDitampilkan.length} post.` : "Post tidak ditemukan.";
+        items.forEach(p => {
+          const li = document.createElement("li");
+          li.className = "post";
+          li.innerHTML = `<h4>${p.title}</h4><p>${p.body}</p>`;
+          elPost.appendChild(li);
+        });
+        elInfo.textContent = `Halaman ${halaman} dari ${total}`;
+        btnPrev.disabled = halaman === 1;
+        btnNext.disabled = halaman >= total;
+      }
+
+      function l4Cari() {
+        const q = document.getElementById("l4CariPost").value.toLowerCase().trim();
+        postDitampilkan = semuaPost.filter(p => p.title.toLowerCase().includes(q));
+        halaman = 1;
+        renderPost();
+      }
+      window.l4Cari = l4Cari;
+
+      document.getElementById("l4CariPost").addEventListener("keyup", e => { if (e.key === "Enter") l4Cari(); });
+      btnPrev.addEventListener("click", () => { halaman--; renderPost(); });
+      btnNext.addEventListener("click", () => { halaman++; renderPost(); });
+
+      fetch("https://jsonplaceholder.typicode.com/posts")
+        .then(r => { if (!r.ok) throw new Error("Gagal memuat API."); return r.json(); })
+        .then(data => { semuaPost = data; postDitampilkan = data; renderPost(); })
+        .catch(err => { elPesan.textContent = err.message; });
+
+      /* --- Todo List --- */
+      let todos = JSON.parse(localStorage.getItem("daftarTodo") || "[]");
+      const elTodo = document.getElementById("daftarTodo");
+
+      function simpanTodo() { localStorage.setItem("daftarTodo", JSON.stringify(todos)); }
+
+      function renderTodo() {
+        elTodo.innerHTML = "";
+        if (!todos.length) { elTodo.innerHTML = "<li>Belum ada todo.</li>"; return; }
+        todos.forEach((t, i) => {
+          const li = document.createElement("li");
+          li.className = "todo-item" + (t.selesai ? " selesai" : "");
+          const span = document.createElement("span");
+          span.textContent = t.teks;
+          span.addEventListener("click", () => { todos[i].selesai = !todos[i].selesai; simpanTodo(); renderTodo(); });
+          const btn = document.createElement("button");
+          btn.className = "merah";
+          btn.textContent = "Hapus";
+          btn.addEventListener("click", () => { todos.splice(i, 1); simpanTodo(); renderTodo(); });
+          li.appendChild(span);
+          li.appendChild(btn);
+          elTodo.appendChild(li);
+        });
+      }
+
+      document.getElementById("formTodo").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const teks = document.getElementById("inputTodo").value.trim();
+        if (!teks) return;
+        todos.push({ teks, selesai: false });
+        simpanTodo();
+        renderTodo();
+        this.reset();
+      });
+
+      renderTodo();
+    })();
+  </script>
+</body>
+</html>
