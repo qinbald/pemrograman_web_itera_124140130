@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Mahasiswa ITERA</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div>
+        <h1>Dashboard Mahasiswa</h1>
+        <p id="jam-sekarang">Memuat waktu...</p>
+      </div>
+      <div class="cuaca-card" id="widget-cuaca">
+        <span class="label">Cuaca Kampus ITERA</span>
+        <span id="cuaca-suhu">Memuat...</span>
+        <span id="cuaca-angin"></span>
+      </div>
+    </header>
+
+    <section class="quote-card">
+      <p id="quote-text">"Memuat kutipan hari ini..."</p>
+      <small id="quote-author">-</small>
+    </section>
+
+    <main class="main-content">
+      <section class="form-section">
+        <h2 id="form-title">Tambah Tugas Kuliah</h2>
+        <form id="task-form">
+          <input type="hidden" id="edit-id" value="">
+          
+          <div class="form-group">
+            <label for="task-matkul">Mata Kuliah</label>
+            <input type="text" id="task-matkul" placeholder="Contoh: Pemrograman Web" required>
+          </div>
+
+          <div class="form-group">
+            <label for="task-title">Judul Tugas</label>
+            <input type="text" id="task-title" placeholder="Contoh: Tugas Minggu 2 Dashboard" required>
+          </div>
+
+          <div class="form-group">
+            <label for="task-deadline">Tenggat Waktu</label>
+            <input type="date" id="task-deadline" required>
+          </div>
+
+          <div class="form-buttons">
+            <button type="submit" id="btn-submit" class="btn btn-primary">Simpan Tugas</button>
+            <button type="button" id="btn-cancel" class="btn btn-secondary" style="display: none;">Batal</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="list-section">
+        <div class="list-header">
+          <h2>Daftar Tugas Kuliah</h2>
+          <span id="task-count" class="badge">0 Tugas</span>
+        </div>
+        <div id="task-list" class="task-list">
+          <!-- Item tugas dirender lewat JavaScript -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
