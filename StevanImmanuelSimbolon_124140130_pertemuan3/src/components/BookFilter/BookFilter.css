@@ -1,0 +1,127 @@
+/* ==========================================================================
+   LocalGuide Design System - BookFilter Component
+   Map-forward quick discovery search and clear filter chips.
+   ========================================================================== */
+
+.book-filter-container {
+  background-color: var(--color-surface);
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.filter-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+/* Search input with guide discovery look */
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.65rem 2.75rem 0.65rem 0.875rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  font-size: 0.925rem;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.search-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.search-input:hover {
+  border-color: var(--color-border-hover);
+}
+
+.search-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
+  background-color: var(--color-surface);
+}
+
+.clear-search-btn {
+  position: absolute;
+  right: 8px;
+  background-color: var(--color-surface-muted);
+  color: var(--color-text-muted);
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 700;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.clear-search-btn:hover {
+  background-color: var(--color-border-hover);
+  color: var(--color-text-primary);
+}
+
+/* Clear filter chips for quick category browsing */
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-btn {
+  padding: 0.45rem 1.15rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background-color: var(--color-surface);
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.filter-btn:hover {
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+  background-color: var(--color-secondary-light);
+}
+
+/* Active filter chip: Anchored in Primary Red-Orange */
+.filter-btn.active {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 6px rgba(234, 88, 12, 0.3);
+}
+
+@media (min-width: 640px) {
+  .book-filter-container {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .search-box {
+    flex: 1;
+    max-width: 420px;
+  }
+}
+

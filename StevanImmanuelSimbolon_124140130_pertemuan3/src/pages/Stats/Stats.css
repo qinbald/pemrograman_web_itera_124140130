@@ -1,0 +1,188 @@
+/* ==========================================================================
+   LocalGuide Design System - Stats Page
+   Analytical dashboard with red-orange, teal, and yellow accents.
+   ========================================================================== */
+
+.stats-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.stats-header {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--color-border-light);
+  padding-bottom: 1.5rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 640px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Stat Card with soft elevation and accented top borders */
+.stat-card {
+  background-color: var(--color-surface);
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Red-Orange anchors hierarchy, teal and yellow accent supporting elements */
+.card-total {
+  border-top: 4px solid var(--color-primary);
+}
+
+.card-milik {
+  border-top: 4px solid var(--color-success);
+}
+
+.card-baca {
+  border-top: 4px solid var(--color-secondary);
+}
+
+.card-beli {
+  border-top: 4px solid var(--color-tertiary);
+}
+
+.stat-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 2.75rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-text-primary);
+}
+
+.stat-percentage {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin-top: 0.5rem;
+}
+
+/* Distribution Section */
+.distribution-section {
+  background-color: var(--color-surface);
+  padding: 1.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 1.25rem;
+}
+
+.empty-stats-notice {
+  color: var(--color-text-secondary);
+  font-size: 0.925rem;
+}
+
+.progress-bar-container {
+  height: 14px;
+  background-color: var(--color-surface-muted);
+  border-radius: var(--radius-full);
+  display: flex;
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+}
+
+.progress-segment {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.bar-milik {
+  background-color: var(--color-success);
+}
+
+.bar-baca {
+  background-color: var(--color-secondary);
+}
+
+.bar-beli {
+  background-color: var(--color-tertiary);
+}
+
+.distribution-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  display: inline-block;
+}
+
+.dot-milik {
+  background-color: var(--color-success);
+}
+
+.dot-baca {
+  background-color: var(--color-secondary);
+}
+
+.dot-beli {
+  background-color: var(--color-tertiary);
+}
+
+.stats-actions {
+  display: flex;
+}
+
+.back-link {
+  text-decoration: none;
+}
+

@@ -1,0 +1,179 @@
+/* ==========================================================================
+   LocalGuide Design System - BookList Component
+   Map-forward discovery cards, clear status badges, and insider actions.
+   ========================================================================== */
+
+.book-list-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 680px) {
+  .book-list-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1040px) {
+  .book-list-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* LocalGuide discovery card with soft elevation */
+.book-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.book-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-hover);
+}
+
+.book-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.book-card-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--color-text-primary);
+  word-break: break-word;
+}
+
+.book-card-author {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.author-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-muted);
+}
+
+/* Clear Status Badges (Pills) with semantic tones */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Milik / Selesai: Success #16A34A */
+.badge-milik {
+  background-color: var(--color-success-light);
+  color: var(--color-success);
+  border: 1px solid #BBF7D0;
+}
+
+/* Sedang Dibaca: Secondary Teal #0D9488 */
+.badge-baca {
+  background-color: var(--color-secondary-light);
+  color: var(--color-secondary);
+  border: 1px solid #99F6E4;
+}
+
+/* Rencana Beli: Tertiary Yellow #CA8A04 */
+.badge-beli {
+  background-color: var(--color-tertiary-light);
+  color: #B45309;
+  border: 1px solid #FDE68A;
+}
+
+.badge-default {
+  background-color: var(--color-surface-muted);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+/* Card Actions */
+.book-card-actions {
+  display: flex;
+  gap: 0.625rem;
+  border-top: 1px solid var(--color-border-light);
+  padding-top: 1rem;
+}
+
+.action-btn {
+  flex: 1;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.825rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+/* Edit action: Secondary Teal */
+.edit-btn {
+  background-color: var(--color-secondary-light);
+  color: var(--color-secondary);
+  border: 1px solid #99F6E4;
+}
+
+.edit-btn:hover {
+  background-color: var(--color-secondary);
+  color: #ffffff;
+  border-color: var(--color-secondary);
+}
+
+/* Delete action: Error Red */
+.delete-btn {
+  background-color: var(--color-error-light);
+  color: var(--color-error);
+  border: 1px solid #FECACA;
+}
+
+.delete-btn:hover {
+  background-color: var(--color-error);
+  color: #ffffff;
+  border-color: var(--color-error);
+}
+
+/* Empty State */
+.empty-book-list {
+  background-color: var(--color-surface);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.empty-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.empty-desc {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+

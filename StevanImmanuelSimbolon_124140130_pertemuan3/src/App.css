@@ -1,0 +1,222 @@
+/* ==========================================================================
+   LocalGuide Design System - App Shell Layout & Navigation
+   ========================================================================== */
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg);
+}
+
+/* Header with clean surface & soft discovery elevation */
+.app-header {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+}
+
+.header-content {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0.875rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Logo: LocalGuide discovery brand */
+.app-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--color-text-primary);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.logo-text {
+  background: linear-gradient(135deg, var(--color-primary), #F97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+/* Navigation Links */
+.app-nav {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 0.925rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background-color: transparent;
+  padding: 0.5rem 1.15rem;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.nav-link:hover {
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  text-decoration: none;
+}
+
+.nav-link.active {
+  color: #ffffff;
+  background-color: var(--color-primary);
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.35);
+}
+
+/* Main Container */
+.app-main {
+  flex: 1;
+  padding: 2.25rem 1.5rem;
+  max-width: 1140px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.main-content-wrapper {
+  width: 100%;
+}
+
+/* Reusable Button Primitives */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.925rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--color-surface);
+  color: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-secondary-light);
+  color: var(--color-secondary-hover);
+}
+
+/* 404 Not Found View */
+.not-found-container {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  max-width: 540px;
+  margin: 2rem auto;
+}
+
+.not-found-container h2 {
+  color: var(--color-primary);
+  margin-bottom: 0.75rem;
+}
+
+.not-found-container p {
+  color: var(--color-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+/* Footer with clean, warm aesthetic */
+.app-footer {
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-muted);
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-top: auto;
+}
+
+/* RawBlock Global Button Classes */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border: 3px solid var(--color-black);
+  padding: 10px 24px;
+  min-height: 44px;
+  font-size: 14px;
+  text-decoration: none;
+  transition: none;
+}
+
+.btn-primary {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border: 3px solid var(--color-black);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-white);
+  color: var(--color-black);
+}
+
+.btn-primary:active {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border: 5px solid var(--color-black);
+}
+
+.btn-secondary {
+  background-color: var(--color-white);
+  color: var(--color-black);
+  border: 3px solid var(--color-black);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+.btn:disabled {
+  background-color: var(--color-surface-sunken);
+  color: #888888;
+  border: 3px solid var(--color-disabled);
+  cursor: not-allowed;
+}
+
