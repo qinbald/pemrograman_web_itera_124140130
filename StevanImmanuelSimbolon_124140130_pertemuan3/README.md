@@ -70,27 +70,20 @@
 
 ## 3. Screenshot Antarmuka Aplikasi
 
-> _Simpan berkas tangkapan layar antarmuka di dalam folder `screenshots/`._
-
 ### A. Halaman Beranda & Form Tambah Buku
 
 ![Halaman Beranda](./screenshots/01-beranda-tambah-buku.png)
-_Tampilan form penambahan buku baru, filter chips kategori, pencarian, dan daftar kartu koleksi buku._
+_Formulir penambahan buku baru dengan input judul, penulis, pilihan status buku, dan navigasi tab header._
 
-### B. Mode Edit Data Buku
+### B. Fitur Pencarian, Filter Status & Daftar Koleksi Buku
 
-![Mode Edit Buku](./screenshots/02-edit-buku.png)
-_Tampilan form saat memuat data buku untuk diedit beserta tombol Simpan Perubahan dan Batal._
+![Pencarian, Filter, dan Daftar Buku](./screenshots/02-filter-dan-daftar-buku.png)
+_Fitur pencarian real-time judul/penulis, filter chips status (Semua, Milik, Sedang Dibaca, Ingin Dibeli), serta grid kartu buku lengkap dengan badge status dan aksi Edit/Hapus._
 
-### C. Fitur Pencarian & Filter Status
+### C. Halaman Statistik & Analisis Koleksi
 
-![Pencarian dan Filter](./screenshots/03-filter-dan-pencarian.png)
-_Hasil pencarian real-time dan penyaringan status buku menggunakan pill filter chips._
-
-### D. Halaman Analitik & Statistik Koleksi
-
-![Halaman Statistik](./screenshots/04-halaman-statistik.png)
-_Dasbor metrik kartu angka agregasi, persentase rasio, dan bilah progres distribusi status koleksi._
+![Halaman Statistik](./screenshots/03-halaman-statistik.png)
+_Dasbor statistik koleksi buku berisi ringkasan kartu metrik total, rincian tiap status buku, persentase rasio, dan bilah progres distribusi koleksi._
 
 ---
 
@@ -229,18 +222,4 @@ Pengujian otomatis dibangun menggunakan **Vitest** dan **React Testing Library**
 
 ### Screenshot Hasil Eksekusi Unit Test di Terminal
 
-![Screenshot Hasil Unit Test Terminal](./screenshots/05-laporan-unit-test-terminal.png)
-
-_Log output eksekusi terminal:_
-
-```text
- ✓ tests/useLocalStorage.test.jsx (4 tests) 42ms
- ✓ tests/BookContext.test.jsx (4 tests) 33ms
- ✓ tests/BookFilter.test.jsx (4 tests) 204ms
- ✓ tests/BookList.test.jsx (6 tests) 200ms
- ✓ tests/BookForm.test.jsx (4 tests) 250ms
-
- Test Files  5 passed (5)
-      Tests  22 passed (22)
-   Duration  4.23s
-```
+![Screenshot Hasil Unit Test Terminal](./screenshots/04-laporan-unit-test-terminal.png)
