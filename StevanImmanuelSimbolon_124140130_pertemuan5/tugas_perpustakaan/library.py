@@ -1,4 +1,4 @@
-﻿# library.py
+# library.py
 # Berisi class Library, yaitu pengelola koleksi item
 # perpustakaan (menambah, menampilkan, dan mencari).
 
@@ -35,17 +35,19 @@ class Library:
 
     # METHOD: tambah_item
     # Menambahkan satu item baru ke koleksi.
-    def tambah_item(self, item_baru):
+    def tambah_item(self, item_baru, tampilkan_pesan=True):
         """Menambahkan item ke koleksi perpustakaan."""
         # Periksa dulu apakah id sudah dipakai.
         # Kalau dipakai, jangan tambahkan supaya id tetap unik.
         if self.cari_item(item_baru.id_item) != None:
-            print("Gagal menambah: id " + item_baru.id_item + " sudah dipakai.")
+            if tampilkan_pesan:
+                print("Gagal menambah: id " + item_baru.id_item + " sudah dipakai.")
             return False
 
         # Simpan item ke list private
         self.__koleksi.append(item_baru)
-        print("Berhasil menambah: " + item_baru.judul)
+        if tampilkan_pesan:
+            print("Berhasil menambah: " + item_baru.judul)
         return True
 
     # METHOD: tampilkan_katalog
