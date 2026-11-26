@@ -1,4 +1,5 @@
 import argparse
+from datetime import date
 import sys
 
 from pyramid.paster import bootstrap, setup_logging
@@ -14,6 +15,28 @@ def setup_models(dbsession):
     """
     model = models.mymodel.MyModel(name='one', value=1)
     dbsession.add(model)
+
+    mahasiswa_awal = [
+        models.Mahasiswa(
+            nim='12345',
+            nama='Budi Santoso',
+            jurusan='Teknik Informatika',
+            tanggal_lahir=date(2000, 5, 15),
+            alamat='Jl. Merdeka No. 123, Bandung',
+        ),
+        models.Mahasiswa(
+            nim='54321',
+            nama='Siti Aminah',
+            jurusan='Sistem Informasi',
+            tanggal_lahir=date(2001, 8, 22),
+            alamat='Jl. Mawar No. 45, Jakarta',
+        ),
+    ]
+
+    for mhs in mahasiswa_awal:
+        sudah_ada = dbsession.query(models.Mahasiswa).filter_by(nim=mhs.nim).first()
+        if not sudah_ada:
+            dbsession.add(mhs)
 
 
 def parse_args(argv):
