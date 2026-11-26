@@ -23,22 +23,47 @@ def setup_models(dbsession):
             nim='12345',
             nama='Stevan',
             jurusan='Teknik Informatika',
-            tanggal_lahir=date(2000, 5, 15),
+            tanggal_lahir=date(1945, 8, 17),
             alamat='Jl. Merdeka No. 123, Bandung',
         ),
         models.Mahasiswa(
             nim='54321',
-            nama='Maximus',
+            nama='Maximus Decimus',
             jurusan='Sistem Informasi',
-            tanggal_lahir=date(2001, 8, 22),
+            tanggal_lahir=date(152, 3, 15),
             alamat='Jl. Mawar No. 45, Jakarta',
         ),
     ]
 
     for mhs in mahasiswa_awal:
-        sudah_ada = dbsession.query(models.Mahasiswa).filter_by(nim=mhs.nim).first()
-        if not sudah_ada:
+        if dbsession.query(models.Mahasiswa).filter_by(nim=mhs.nim).first() is None:
             dbsession.add(mhs)
+
+    # Data awal untuk tabel matakuliah
+    matakuliah_awal = [
+        models.Matakuliah(
+            kode_mk='IF2110',
+            nama_mk='Pemrograman Web',
+            sks=3,
+            semester=3,
+        ),
+        models.Matakuliah(
+            kode_mk='IF3140',
+            nama_mk='Basis Data',
+            sks=4,
+            semester=3,
+        ),
+        models.Matakuliah(
+            kode_mk='IF3210',
+            nama_mk='Pengembangan Aplikasi Mobile',
+            sks=3,
+            semester=5,
+        ),
+    ]
+
+    for mk in matakuliah_awal:
+        if dbsession.query(models.Matakuliah).filter_by(kode_mk=mk.kode_mk).first() is None:
+            dbsession.add(mk)
 
 
 def parse_args(argv):

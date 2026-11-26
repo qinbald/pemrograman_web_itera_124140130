@@ -1,16 +1,20 @@
 # Virtual environment
 venv/
+**/venv/
 .venv/
 env/
-
-# Python cache & build
-__pycache__/
-*.py[cod]
-*.egg-info/
-dist/
-build/
 
 # Database lokal & environment
 *.sqlite
 *.db
 .env
+
+# Python cache, test & build
+__pycache__/
+*.pyc
+*.pyo
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+dist/
+build/
