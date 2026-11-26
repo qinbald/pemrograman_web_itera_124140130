@@ -13,20 +13,22 @@ def setup_models(dbsession):
     Add or update models / fixtures in the database.
 
     """
-    model = models.mymodel.MyModel(name='one', value=1)
-    dbsession.add(model)
+    existing_model = dbsession.query(models.mymodel.MyModel).filter_by(name='one').first()
+    if not existing_model:
+        model = models.mymodel.MyModel(name='one', value=1)
+        dbsession.add(model)
 
     mahasiswa_awal = [
         models.Mahasiswa(
             nim='12345',
-            nama='Budi Santoso',
+            nama='Stevan',
             jurusan='Teknik Informatika',
             tanggal_lahir=date(2000, 5, 15),
             alamat='Jl. Merdeka No. 123, Bandung',
         ),
         models.Mahasiswa(
             nim='54321',
-            nama='Siti Aminah',
+            nama='Maximus',
             jurusan='Sistem Informasi',
             tanggal_lahir=date(2001, 8, 22),
             alamat='Jl. Mawar No. 45, Jakarta',
@@ -69,3 +71,7 @@ might be caused by one of the following things:
     database server referred to by the "sqlalchemy.url" setting in
     your "development.ini" file is running.
             ''')
+
+
+if __name__ == '__main__':
+    main()
