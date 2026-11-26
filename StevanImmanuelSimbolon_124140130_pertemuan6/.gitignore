@@ -1,0 +1,16 @@
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Python cache & build
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Database lokal & environment
+*.sqlite
+*.db
+.env
